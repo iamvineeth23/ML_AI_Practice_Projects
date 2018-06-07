@@ -1,8 +1,9 @@
-
 """
 @author: vineethbharadwajp
 """
-# Decision Tree Regression
+# Random Forest Regression
+
+# Data Preprocessing
 
 # Importing Libraries
 import numpy as np
@@ -25,23 +26,22 @@ sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test) """
 
-# Fitting Decision Tree Regression Model to the dataset
-from sklearn.tree import DecisionTreeRegressor
-decTree_reg = DecisionTreeRegressor(random_state = 0)
-decTree_reg.fit(X, Y)
+# Fitting Random Forest Regression Model to the dataset
+from sklearn.ensemble import RandomForestRegressor
+rf_reg = RandomForestRegressor(n_estimators = 300, random_state = 0)
+rf_reg.fit(X, Y)
 
 
-# Predicting new results with Decision Tree Regression Model
-y_pred = decTree_reg.predict(6.5)
+# Predicting new results with Random Forest Regression Model
+y_pred = rf_reg.predict(6.5)
 
 
-# Visualising the Decision Tree Regression Model Results
+# Visualising the Random Forest Regression Model Results
 X_grid = np.arange(min(X), max(X), 0.01)
 X_grid = X_grid.reshape(len(X_grid), 1)
 plt.scatter(X, Y, color = 'blue')
-plt.plot(X_grid, decTree_reg.predict(X_grid), color = 'black')
-plt.title('Predicted Salary vs Levels (Decision Tree Regression)')
+plt.plot(X_grid, rf_reg.predict(X_grid), color = 'black')
+plt.title('Predicted Salary vs Levels (Random Forest Regression)')
 plt.xlabel('Levels')
 plt.ylabel('Predicted Salary')
 plt.show()
-
