@@ -9,7 +9,7 @@ library(randomForest)
 set.seed(1234)
 rf_reg = randomForest(x = dataset[1], # gives x dataframe
                       y = dataset$Salary, # gives y vector
-                      ntree = 100)
+                      ntree = 500)
 
 #Predicting the results with Random Forest Regression Model
 y_pred = predict(rf_reg, newdata = data.frame(Level = 6.5))
