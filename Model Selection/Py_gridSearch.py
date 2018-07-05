@@ -1,5 +1,10 @@
-# Kernel SVM
+"""
+@author: Vineeth
+"""
 
+# Grid Search
+
+# Kernel SVM
 # Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,7 +16,7 @@ X = dataset.iloc[:, [2, 3]].values
 y = dataset.iloc[:, 4].values
 
 # Splitting the dataset into the Training set and Test set
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
 
 # Feature Scaling
@@ -31,6 +36,29 @@ y_pred = classifier.predict(X_test)
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+
+#Applying k-Fold cross validation
+from sklearn.model_selection import cross_val_score
+accuracies = cross_val_score(estimator = classifier, X = X_train,
+                             y = y_train, cv = 10)
+
+acc_mean = accuracies.mean()
+acc_std = accuracies.std()
+
+# Applying grid search 
+from sklearn.model_selection import GridSearchCV
+parameters = [{'C': [1, 10, 100, 1000], 'kernel': ['linear']},
+              {'C': [1, 10, 100, 1000], 'kernel': ['rbf'], 'gamma': [0.5, 0.1, 0.01, 0.001, 0.0001]}
+              ]
+grid_search = GridSearchCV(estimator = classifier,
+                           param_grid = parameters,
+                           scoring = 'accuracy',
+                           cv = 10,
+                           n_jobs = -1)
+grid_search = grid_search.fit(X_train, y_train)
+best_accuracy = grid_search.best_score_
+best_parameters = grid_search.best_params_
 
 # Visualising the Training set results
 from matplotlib.colors import ListedColormap
