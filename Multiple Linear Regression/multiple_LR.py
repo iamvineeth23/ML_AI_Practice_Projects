@@ -57,9 +57,11 @@ X = np.append(arr = np.ones((50,1)).astype(int), values = X, axis = 1)
 regressor_OLS = sm.OLS(endog = Y, exog = X_opt).fit()
 regressor_OLS.summary()
 
-""" # lower the P value, more significant will be the independent variable wrt 
- dependent variable """
+"""
+#  lower the P value, more significant will be the independent variable wrt 
+# dependent variable 
 
+"""
 X_opt = X[:, [0, 1, 3, 4, 5]]
 regressor_OLS = sm.OLS(endog = Y, exog = X_opt).fit()
 regressor_OLS.summary()
@@ -76,6 +78,7 @@ X_opt = X[:, [0, 3]]
 regressor_OLS = sm.OLS(endog = Y, exog = X_opt).fit()
 regressor_OLS.summary()
 """
+
 ## Automatic Backward Elimination
 import statsmodels.formula.api as sm
     
@@ -95,7 +98,7 @@ SL = 0.05
 X_opt = X[:, [0,1,2,3,4,5]]
 X_Modeled = backwardElimination(X_opt, SL)
 
-"""
+
 ##Backward Elimination with p-values and Adjusted R Squared:
 import statsmodels.formula.api as sm
 def backwardElimination(x, SL):
